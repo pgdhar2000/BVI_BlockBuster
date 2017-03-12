@@ -62,7 +62,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-#
+# for blockbuster
 /.metadata/
 /.recommenders/
 bvi_blockbuster/target/
+/RemoteSystemsTempFiles/

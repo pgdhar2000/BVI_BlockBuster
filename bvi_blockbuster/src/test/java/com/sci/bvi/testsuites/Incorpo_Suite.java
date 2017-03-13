@@ -34,7 +34,7 @@ public class Incorpo_Suite {
 	    public static void setup() {
 	        Reporter.loadXMLConfig(new File("src/test/resources/extent-config.xml"));
 	        Reporter.setSystemInfo("user", System.getProperty("user.name"));
-	        Reporter.setSystemInfo("os", "windows10");
+	        Reporter.setSystemInfo("OS", "windows10");
 	        Reporter.setTestRunnerOutput("Sample test runner output message");
 	    }
 }

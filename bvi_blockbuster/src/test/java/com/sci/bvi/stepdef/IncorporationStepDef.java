@@ -4,6 +4,7 @@ package com.sci.bvi.stepdef;
 //import org.junit.*;
 import static org.junit.Assert.*;
 
+import com.cucumber.listener.Reporter;
 import com.sci.bvi.runner.Hooks;
 import com.sci.bvi.util.library;
 import org.openqa.selenium.By;
@@ -26,14 +27,19 @@ public class IncorporationStepDef extends library{
 	public void company_is_not_already_registered() throws Throwable {
 		driver.get("http://182.74.133.92:8080/BB_UI/#/login");
 		waitForWorking(driver);
-
+//		Reporter.addStepLog("Step Log message goes here");
+//		Reporter.addScenarioLog("Scenario Log message goes here");
+//		Reporter.addScreenCaptureFromPath("absolute screenshot path");
+//		Reporter.addScreenCastFromPath("absolute screen cast path");
 		assertEquals(driver.getTitle(), "Theme Template for Bootstrap");
 		driver.findElement(By.xpath(gOX(driver, "usrname"))).clear();
-		driver.findElement(By.xpath(gOX(driver, "usrname"))).sendKeys("testuser1");
-		driver.findElement(By.xpath("//div[@id='wrap']/div/div[2]/div/div/div/div[2]/form/fieldset/div[7]/input")).clear();
-		driver.findElement(By.xpath("//div[@id='wrap']/div/div[2]/div/div/div/div[2]/form/fieldset/div[7]/input")).sendKeys("sciits");
-		driver.findElement(By.xpath("//div[@id='wrap']/div/div[2]/div/div/div/div[2]/form/fieldset/div[8]/div/button")).click();
-		
+		driver.findElement(By.xpath(gOX(driver, "usrname"))).sendKeys(getProp("rausr"));
+		Reporter.addStepLog("Entered the username");
+		driver.findElement(By.xpath(gOX(driver,"pwd"))).clear();
+		driver.findElement(By.xpath(gOX(driver,"pwd"))).sendKeys(getProp("rapwd"));
+		Reporter.addStepLog("Entered the Password");
+		driver.findElement(By.xpath(gOX(driver,"submit"))).click();
+		Reporter.addStepLog("Clicked the Submit button");
 		waitForWorking(driver);
 		waitForWorking(driver);
 		
@@ -115,5 +121,6 @@ public class IncorporationStepDef extends library{
 		if (ConfirmSignout.contains("You have been successfully logout")) {
 			System.out.println(ConfirmSignout);
 		}
+		driver.quit();
 	}	
 }

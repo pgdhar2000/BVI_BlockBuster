@@ -1,5 +1,7 @@
 package com.sci.bvi.util;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,9 +22,12 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
@@ -31,17 +36,22 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.cucumber.listener.Reporter;
+//import com.sun.jna.platform.FileUtils;
 
 public class library {
+	public String imgName;
 
-	
 	/**
-	 * gOX is get Object's xPath Returns the xPath of the object based on the OS of the device from the file ObjectRepository.xml
+	 * gOX is get Object's xPath Returns the xPath of the object based on the OS
+	 * of the device from the file ObjectRepository.xml
+	 * 
 	 * @author Gangadhar@sciits.com
 	 * @since June 10 2015
 	 * @category Framework
-	 * @param device
-	 * @param property
+	 * @param WebDriver
+	 * @param String
+	 *            Name of the Object in object repository
 	 * @return String i.e the xPath of the Object
 	 */
 	public String gOX(WebDriver driver, String property) {
@@ -58,8 +68,8 @@ public class library {
 			} catch (FileNotFoundException e2) {
 				e2.printStackTrace();
 			}
-				returnval = xPath.evaluate("//object/name[.='" + property + "']/../xpath", inputSource);
-			
+			returnval = xPath.evaluate("//object/name[.='" + property + "']/../xpath", inputSource);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,6 +79,7 @@ public class library {
 	/**
 	 * 
 	 * Gets the value of property from Properties.xml file using the xPath
+	 * 
 	 * @author Gangadhar@sciits.com
 	 * @since June 10 2015
 	 * @category Framework
@@ -79,7 +90,7 @@ public class library {
 		String returnval = "waste";
 		XPathFactory factory = XPathFactory.newInstance();
 		XPath xPath = factory.newXPath();
-		File xmlDocument = new File("Properties.xml");
+		File xmlDocument = new File("src/test/resources/Properties.xml");
 		InputSource inputSource = null;
 		try {
 			inputSource = null;
@@ -98,6 +109,7 @@ public class library {
 	/**
 	 * 
 	 * Set's the value to the property in Properties.xml file using the xPath
+	 * 
 	 * @author Gangadhar@sciits.com
 	 * @since June 10 2015
 	 * @category Framework
@@ -135,7 +147,9 @@ public class library {
 	}
 
 	/**
-	 * Returns the current Date and time in the String format as EEEdMMMyyyyHHmmss
+	 * Returns the current Date and time in the String format as
+	 * EEEdMMMyyyyHHmmss
+	 * 
 	 * @author Gangadhar@sciits.com
 	 * @since June 10 2015
 	 * @return String in format as EEEdMMMyyyyHHmmss
@@ -146,6 +160,7 @@ public class library {
 		SimpleDateFormat sdf = new SimpleDateFormat("EEEdMMMyyyyHHmmss");
 		return (sdf.format(cal.getTime()));
 	}
+
 	public void waitForWorking(WebDriver driver) {
 		JavascriptExecutor exec = (JavascriptExecutor) driver;
 		// boolean working=true;
@@ -233,5 +248,39 @@ public class library {
 				cond = true;
 			}
 		} while (!cond);
+	}
+
+	public void signin(WebDriver driver) {
+		driver.get("http://182.74.133.92:8080/BB_UI/#/login");
+		waitForWorking(driver);
+		// Reporter.addStepLog("Step Log message goes here");
+		// Reporter.addScenarioLog("Scenario Log message goes here");
+		// Reporter.addScreenCaptureFromPath("absolute screenshot path");
+		// Reporter.addScreenCastFromPath("absolute screen cast path");
+		assertEquals(driver.getTitle(), "Theme Template for Bootstrap");
+		driver.findElement(By.xpath(gOX(driver, "usrname"))).clear();
+		driver.findElement(By.xpath(gOX(driver, "usrname"))).sendKeys(getProp("rausr"));
+		log(driver,"Entered the username");
+		driver.findElement(By.xpath(gOX(driver, "pwd"))).clear();
+		driver.findElement(By.xpath(gOX(driver, "pwd"))).sendKeys(getProp("rapwd"));
+		log(driver,"Entered the Password");
+		driver.findElement(By.xpath(gOX(driver, "submit"))).click();
+		log(driver,"EClicked the Submit button");
+		waitForWorking(driver);
+		waitForWorking(driver);
+	}
+
+	public void log(WebDriver driver,String msg) {
+		File scrFile;
+		String abspath = "/test-output/Screenshots/";
+		imgName = abspath + (curDateTime()) + ".png";
+		scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		try {
+			FileUtils.copyFile(scrFile, new File(imgName));
+			Reporter.addStepLog(msg);
+			Reporter.addScreenCaptureFromPath(scrFile+"/" + imgName);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

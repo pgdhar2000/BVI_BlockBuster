@@ -49,7 +49,7 @@ public class TestRunner {
 			cucumberrun.getGlue().add("com.sci.bvi.stepdef");
 			cucumberrun.getFeaturePaths().clear();
 			cucumberrun.getFeaturePaths().add("target//generated-test-sources//cucumber//" + featureName);
-			cucumberrun.getFilters().add("@OPEN");
+			cucumberrun.getFilters().add("@Developed");
 			//cucumberrun.addPlugin({"com.cucumber.listener.ExtentCucumberFormatter:output/report.html"});
 			cucumberrun.getJunitOptions().add("com.cucumber.listener.ExtentCucumberFormatter:output/report.html");
 			ClassFinder classFinder = new ResourceLoaderClassFinder(resourceLoader, classLoader);

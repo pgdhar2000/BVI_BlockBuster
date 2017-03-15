@@ -41,6 +41,13 @@ import com.cucumber.listener.Reporter;
 
 public class library {
 	public String imgName;
+	public String abspath;
+	
+	public library(){
+		File xmlDocument = new File("pom.xml");
+		abspath=xmlDocument.getAbsolutePath();
+		abspath=abspath.replace("pom.xml","");
+	}
 
 	/**
 	 * gOX is get Object's xPath Returns the xPath of the object based on the OS
@@ -91,6 +98,7 @@ public class library {
 		XPathFactory factory = XPathFactory.newInstance();
 		XPath xPath = factory.newXPath();
 		File xmlDocument = new File("src/test/resources/Properties.xml");
+		xmlDocument.getAbsolutePath();
 		InputSource inputSource = null;
 		try {
 			inputSource = null;
@@ -251,12 +259,11 @@ public class library {
 	}
 
 	public void signin(WebDriver driver) {
-		driver.get("http://182.74.133.92:8080/BB_UI/#/login");
+		driver.get(getProp("appurl"));
 		waitForWorking(driver);
-		// Reporter.addStepLog("Step Log message goes here");
-		// Reporter.addScenarioLog("Scenario Log message goes here");
-		// Reporter.addScreenCaptureFromPath("absolute screenshot path");
-		// Reporter.addScreenCastFromPath("absolute screen cast path");
+		driver.findElement(By.xpath("//button[@type='button']")).click();
+	    driver.findElement(By.xpath("//a[contains(text(),'Registered Agent')]")).click();
+	    waitForWorking(driver);
 		assertEquals(driver.getTitle(), "Theme Template for Bootstrap");
 		driver.findElement(By.xpath(gOX(driver, "usrname"))).clear();
 		driver.findElement(By.xpath(gOX(driver, "usrname"))).sendKeys(getProp("rausr"));
@@ -272,13 +279,15 @@ public class library {
 
 	public void log(WebDriver driver,String msg) {
 		File scrFile;
-		String abspath = "/test-output/Screenshots/";
 		imgName = abspath + (curDateTime()) + ".png";
+		if(new File(imgName).exists()){
+			imgName=imgName.replace(".png", "_1.png");
+		}
 		scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		try {
 			FileUtils.copyFile(scrFile, new File(imgName));
 			Reporter.addStepLog(msg);
-			Reporter.addScreenCaptureFromPath(scrFile+"/" + imgName);
+			Reporter.addScreenCaptureFromPath(imgName);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

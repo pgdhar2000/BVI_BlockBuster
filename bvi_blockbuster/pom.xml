@@ -51,7 +51,7 @@
 				<version>2.12</version>
 				<executions>
 					<execution>
-						<id>integration-test</id>
+						<id>integration-test </id>
 						<goals>
 							<goal>integration-test</goal>
 							<goal>verify</goal>
@@ -210,6 +210,12 @@
 			<groupId>com.aventstack</groupId>
 			<artifactId>extentreports</artifactId>
 			<version>3.0.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-bundle -->
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-bundle</artifactId>
+			<version>1.19.3</version>
 		</dependency>
 	</dependencies>
 </project>

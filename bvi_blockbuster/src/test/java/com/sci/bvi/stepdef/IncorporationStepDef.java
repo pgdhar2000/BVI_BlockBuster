@@ -10,6 +10,7 @@ import com.sci.bvi.util.library;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import cucumber.api.java.en.Given;
@@ -17,7 +18,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class IncorporationStepDef extends library{
-	public WebDriver driver;
+	public RemoteWebDriver driver;
 
 	public IncorporationStepDef() {
 		driver = new Hooks().getDriver();
@@ -78,10 +79,26 @@ public class IncorporationStepDef extends library{
 		driver.findElement(By.xpath("//form[@id='enquiry']/div[3]/div[2]/div/input")).sendKeys("1456588745578");
 		driver.findElement(By.xpath("//form[@id='enquiry']/div[4]/div/div/input")).clear();
 		driver.findElement(By.xpath("//form[@id='enquiry']/div[4]/div/div/input")).sendKeys("1456588745578");
-		driver.findElement(By.xpath("//form[@id='enquiry']/div[4]/div[2]/div/input")).clear();
-		driver.findElement(By.xpath("//form[@id='enquiry']/div[4]/div[2]/div/input")).sendKeys("bouncetest@sciits.com");
-		driver.findElement(By.xpath("//form[@id='enquiry']/div[5]/div/div/input[2]")).clear();
-		driver.findElement(By.xpath("//form[@id='enquiry']/div[5]/div/div/input[2]")).sendKeys("www.sciits.com");
+		driver.findElementById("poc_email_tb").clear();
+		driver.findElementById("poc_email_tb").sendKeys("bouncetest@sciits.com");
+		driver.findElementById("website_addr_tb").clear();
+		driver.findElementById("website_addr_tb").sendKeys("www.sciits.com");
+		
+		driver.findElement(By.id("mbc_grossAssets_tb")).sendKeys("30000");
+	    driver.findElement(By.id("mbc_noOfEmployees_tb")).clear();
+	    driver.findElement(By.id("mbc_noOfEmployees_tb")).sendKeys("10");
+	    driver.findElement(By.id("mbc_principalFirstName_tb")).clear();
+	    driver.findElement(By.id("mbc_principalFirstName_tb")).sendKeys("gangaj");
+	    driver.findElement(By.id("participantFirstName_tb")).clear();
+	    driver.findElement(By.id("participantFirstName_tb")).sendKeys("prticipation");
+	    driver.findElement(By.name("consent")).click();
+	    driver.findElement(By.id("mbc_principalLastName_tb")).clear();
+	    driver.findElement(By.id("mbc_principalLastName_tb")).sendKeys("principal last name");
+	    driver.findElement(By.id("participantLastName_tb")).clear();
+	    driver.findElement(By.id("participantLastName_tb")).sendKeys("participant last name");
+		
+		
+		
 		new Select(driver.findElement(By.xpath("//form[@id='enquiry']/div[6]/div/div/select"))).selectByVisibleText("for nonprofit");
 		new Select(driver.findElement(By.xpath("//form[@id='enquiry']/div[6]/div[2]/div/select"))).selectByVisibleText("Ms. Cherlin Armstrong");
 		driver.findElement(By.xpath("//form[@id='enquiry']/div[7]/div/div/textarea")).clear();

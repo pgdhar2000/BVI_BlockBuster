@@ -1,0 +1,44 @@
+{
+ "mbcLegalName": "Organization fourteen",
+ "mbcTotalShares": "1",
+ "addressDetailsTbl": {
+  "streetAddress": "Street fourteen",
+  "city": "City fourteen",
+  "countryTbl": {
+   "countryId": 103
+  },
+  "zipcode": "500001"
+ },
+ "mbcPhone": "91 9111 919 932",
+ "mbcFax": "91 9999 919 919",
+ "mbcPocEmail": "org.fourteen@org.com",
+ "mbcWebUrl": "org.fourteen.com",
+ "mbcGrossAssets": 25000,
+ "mbcNumberEmployees": 10,
+ "principalShareholderTbl": {
+  "firstName": "Principal first name",
+  "lastName": "Principal last name",
+  "countryTbl": {
+   "countryId": 103
+  },
+  "totalShares": 1
+ },
+ "participantShareholderTbl": {
+  "firstName": "Participant first name",
+  "lastName": "Participant last name",
+  "countryTbl": {
+   "countryId": 103
+  },
+  "totalShares": 1
+ },
+ "businessPurposeTbl": {
+  "businessPurposeId": 1
+ },
+ "raWrittenConfirmFlag": "Y",
+ "raConsentFlag": "Y",
+ "userTblByRegisteredAgentId": {
+  "userId": 3
+ },
+ "applicationFeeAmt": 100,
+"registrationFeeAmt": 100
+}

@@ -3,15 +3,15 @@
 <page name='login'>
 	<object>
 		<name>usrname</name>
-		<xpath>//div[@id='wrap']/div/div[2]/div/div/div/div[2]/form/fieldset/div[6]/input</xpath>
+		<xpath>//input[@id='username_tb']</xpath>
 	</object>
 	<object>
 		<name>pwd</name>
-		<xpath>//div[@id='wrap']/div/div[2]/div/div/div/div[2]/form/fieldset/div[7]/input</xpath>
+		<xpath>//input[@id='password_tb']</xpath>
 	</object>
 	<object>
 		<name>submit</name>
-		<xpath>//div[@id='wrap']/div/div[2]/div/div/div/div[2]/form/fieldset/div[8]/div/button</xpath>
+		<xpath>//button[@id='signin_btn']</xpath>
 	</object>	
 </page>
 <page name='incroporation'>

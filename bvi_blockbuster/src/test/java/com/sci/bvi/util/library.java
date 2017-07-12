@@ -29,6 +29,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -61,7 +62,7 @@ public class library {
 	 *            Name of the Object in object repository
 	 * @return String i.e the xPath of the Object
 	 */
-	public String gOX(WebDriver driver, String property) {
+	public String gOX(String property) {
 		String returnval = "";
 		// String OStype = "";
 		XPathFactory factory = XPathFactory.newInstance();
@@ -258,20 +259,21 @@ public class library {
 		} while (!cond);
 	}
 
-	public void signin(WebDriver driver) {
+	public void signin(RemoteWebDriver driver) {
 		driver.get(getProp("appurl"));
 		waitForWorking(driver);
-		driver.findElement(By.xpath("//button[@type='button']")).click();
-	    driver.findElement(By.xpath("//a[contains(text(),'Registered Agent')]")).click();
+//		driver.findElementByXPath("//button[@type='button']").click();
+//		driver.findElementByXPath("//a[contains(text(),'Registered Agent')]").click();
 	    waitForWorking(driver);
-		assertEquals(driver.getTitle(), "Theme Template for Bootstrap");
-		driver.findElement(By.xpath(gOX(driver, "usrname"))).clear();
-		driver.findElement(By.xpath(gOX(driver, "usrname"))).sendKeys(getProp("rausr"));
+		//assertEquals(driver.getTitle(), "Theme Template for Bootstrap");
+	    driver.findElementByXPath(gOX("usrname")).clear();
+	    driver.findElementByXPath(gOX("usrname")).sendKeys(getProp("rausr"));
 		log(driver,"Entered the username");
-		driver.findElement(By.xpath(gOX(driver, "pwd"))).clear();
-		driver.findElement(By.xpath(gOX(driver, "pwd"))).sendKeys(getProp("rapwd"));
+		driver.findElementByXPath(gOX( "pwd")).clear();
+		driver.findElementByXPath(gOX("pwd")).sendKeys(getProp("rapwd"));
+
 		log(driver,"Entered the Password");
-		driver.findElement(By.xpath(gOX(driver, "submit"))).click();
+		driver.findElementByXPath(gOX("submit")).click();
 		log(driver,"EClicked the Submit button");
 		waitForWorking(driver);
 		waitForWorking(driver);

@@ -11,13 +11,14 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.internal.ProfilesIni;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 
 public class Hooks {
-	public  WebDriver driver;
+	public  RemoteWebDriver driver;
 
 	
 	/**
@@ -28,13 +29,16 @@ public class Hooks {
 		System.out.println("Called openBrowser");
 		ProfilesIni profile = new ProfilesIni();
 	    FirefoxProfile fp = profile.getProfile("Defaultbrowse");
-	    System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir")+ "//Drivers/geckodriver.exe");
-	    this.driver = new FirefoxDriver();
+	    //System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir")+ "//Drivers/geckodriver.exe");
+	    //this.driver = new FirefoxDriver();
+	    System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+ "//Drivers/chromedriver.exe");
+	    this.driver= new ChromeDriver();
+	    
 		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 	}
-	public WebDriver getDriver(){
+	public RemoteWebDriver getDriver(){
 		return driver;
 	}
 	@After
